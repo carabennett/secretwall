@@ -8,4 +8,4 @@ services:
     plan: free
     envVars:
       - key: ALLOWED_ORIGINS
-        value: https://<username>.github.io,https://<username>.github.io/<repo-name>,http://localhost:5173
+        value: https://carabennett.github.io,https://carabennett.github.io/secretwall,http://localhost:5173

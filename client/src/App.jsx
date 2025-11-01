@@ -3,7 +3,7 @@ import { Client as BGClient } from 'boardgame.io/react';
 import { SocketIO } from 'boardgame.io/multiplayer';
 import { TicTacToe } from '../../shared/game';
 
-const serverURL = 'https://<your-render-service>.onrender.com';
+const serverURL = 'https://secretwall.onrender.com';
 
 function Board({ G, ctx, moves }) {
   return (
