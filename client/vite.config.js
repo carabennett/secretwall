@@ -5,5 +5,5 @@ export default defineConfig({
   plugins: [react()],
   // If repo is <username>.github.io, use base: '/'
   // Else use '/<repo-name>/'
-  base: '/<repo-name>/'
+  base: '/secretwall/'
 });

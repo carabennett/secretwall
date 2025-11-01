@@ -1,5 +1,5 @@
 // server/index.js
-import { Server } from 'boardgame.io/server';
+import { Server } from 'boardgame.io/dist/cjs/server.js';
 import { TicTacToe } from '../shared/game.js';
 
 const allowed = (process.env.ALLOWED_ORIGINS || '')
@@ -13,8 +13,8 @@ const server = Server({
     ? allowed
     : [
         'http://localhost:5173',
-        'https://<username>.github.io',
-        'https://<username>.github.io/<repo-name>'
+        'https://carabennett.github.io',
+        'https://carabennett.github.io/secretwall'
       ],
 });
 
