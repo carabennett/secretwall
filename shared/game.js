@@ -1,27 +1,58 @@
 // shared/game.js
-export const TicTacToe = {
-  setup: () => ({ cells: Array(9).fill(null) }),
+export const SecretWall = {
+  name: 'secretwall',
+  setup: () => ({
+    submissions: {},
+    votes: {}
+  }),
 
-  turn: { moveLimit: 1 },
+  // Let all players act at once so each can submit independently
+  turn: { 
+    activePlayers: { all: SubmitSecret } ,
+    // order: TurnOrder.ONCE,
+
+    stages: {
+      secretSubmission: {
+        moves: { SubmitSecret, minMoves: 1, maxMoves: 1  }
+      },
+      voteSubmission: {
+        moves: { SubmitVote, minMoves: 1, maxMoves: 1  }
+      },
+    }
+   },
 
   moves: {
-    clickCell({ G, ctx }, id) {
-      if (G.cells[id] !== null) return;
-      G.cells[id] = ctx.currentPlayer;
-    }
+    SubmitSecret
   },
 
-  endIf: ({ G }) => {
-    const lines = [
-      [0,1,2],[3,4,5],[6,7,8],
-      [0,3,6],[1,4,7],[2,5,8],
-      [0,4,8],[2,4,6]
-    ];
-    for (const [a,b,c] of lines) {
-      if (G.cells[a] && G.cells[a] === G.cells[b] && G.cells[a] === G.cells[c]) {
-        return { winner: G.cells[a] };
-      }
-    }
-    if (G.cells.every(c => c !== null)) return { draw: true };
-  }
+  phases: {
+    // votingPhase: {
+    //   moves: {SubmitSecret},
+    // }, 
+
+    submissionPhase: {
+      moves: { SubmitSecret },
+      start: true,
+      // endIf: ({G}) => (G.submissions.length == 2),
+      // next: votingPhase,
+      // onBegin: ({ G, ctx }) => { ... },
+      // onEnd: ({ G, ctx }) => { ... },
+    },
+  },
 };
+
+
+function SubmitSecret({ G, playerID }, text) {
+  if (!playerID) return;
+  if (G.submissions[playerID]) return;
+  G.submissions[playerID] = String(text).slice(0, 280);
+}
+
+function SubmitVote({ G, playerID }, text, voteTarget) {
+  if (!playerID) return;
+  if (G.votes[text]) {
+    G.votes[text][playerID] = voteTarget;
+  } else {
+    G.votes[text] = {playerID: voteTarget};
+  }
+}

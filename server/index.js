@@ -1,6 +1,6 @@
 // server/index.js
 import { Server } from 'boardgame.io/dist/cjs/server.js';
-import { TicTacToe } from '../shared/game.js';
+import { SecretWall } from '../shared/game.js';
 
 const allowed = (process.env.ALLOWED_ORIGINS || '')
   .split(',')
@@ -8,7 +8,7 @@ const allowed = (process.env.ALLOWED_ORIGINS || '')
   .filter(Boolean);
 
 const server = Server({
-  games: [TicTacToe],
+  games: [SecretWall],
   origins: allowed.length
     ? allowed
     : [
