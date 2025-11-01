@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: bgio-ttt
+    env: node
+    rootDir: server
+    buildCommand: npm ci
+    startCommand: npm start
+    plan: free
+    envVars:
+      - key: ALLOWED_ORIGINS
+        value: https://<username>.github.io,https://<username>.github.io/<repo-name>,http://localhost:5173
